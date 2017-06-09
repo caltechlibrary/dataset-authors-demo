@@ -12,10 +12,11 @@
 {{- $fields := (join (dotpath ".request.fields" . nil) ",") -}}
 {{- $fieldValues := (dotpath ".request.fields" . nil) -}}
 {{- $sortBy := (join (dotpath ".request.sort" . nil) ",") -}}
-<div class="search-input-query"><label>Search</label> <textarea name="q"
-	placeholder="Enter your query terms here" 
-		>{{- with .request.query.query }}{{- . -}}{{- end -}}</textarea>
-	</div><!-- END: search-input-query -->
+<div class="search-input-query"><label>Search</label>
+    <textarea name="q" cols="80" rows="1" placeholder="Enter your query terms here" >
+    {{- with .request.query.query }}{{- . -}}{{- end -}}
+    </textarea>
+</div><!-- END: search-input-query -->
 
 {{ with $highlight -}}
     {{if (eq $highlight "true") -}}
