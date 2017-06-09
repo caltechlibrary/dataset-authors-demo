@@ -20,10 +20,9 @@ echo "Run dsindexer to index our collection based on our definition in authors.j
 read -p "Press any key to run command, ctrl-C to exit" NEXT
 dsindexer authors.json
 
-echo "Run dsfind to generate a CSV table from id, title, authors_id, orcid searching for Singh-C"
-read -p "Press any key to run command, ctrl-C to exit" NEXT
-dsfind -c authors -fields="id,title,authors_id,orcid" -csv 'Singh-C'
-
+#echo "Run dsfind to generate a CSV table from id, title, authors_id, orcid searching for Singh-C"
+#read -p "Press any key to run command, ctrl-C to exit" NEXT
+#dsfind -c authors -fields="id,title,authors_id,orcid" -csv 'Singh-C'
 
 echo ""
 echo "Run dsws for a web searchable version of our collection"
