@@ -1,3 +1,4 @@
 *.bleve
 *~
 .DS_Store
+authors/*
