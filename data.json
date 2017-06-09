@@ -1,0 +1,52 @@
+{
+    "id": {
+        "object_path":".id",
+        "field_mapping":"numeric",
+        "store": true
+    },
+    "title": {
+        "object_path":".metadata.title",
+        "field_mapping":"standard",
+        "store": true
+    },
+    "author":{
+        "object_path": ".metadata.authors[:].authorName",
+        "field_mapping": "simple",
+        "store": true
+    },
+    "orcid": {
+        "object_path": ".metadata.authors[:].orcid",
+        "field_mapping": "keyword",
+        "store": true
+    },
+    "abstract": {
+        "object_path": ".metadata.descriptions[:].descriptionValue",
+        "field_mapping": "standard",
+        "store": true
+    },
+    "date": {
+        "object_path": ".metadata.publicationDate",
+        "field_mapping": "datatime",
+        "store": true
+    },
+    "official_url": {
+        "object_path": ".links.self",
+        "field_mapping": "keyword",
+        "store": true
+    },
+    "rights": {
+        "object_path":".metadata.license",
+        "field_mapping": "simple",
+        "store": true
+    },
+    "funders": {
+        "object_path": ".metadata.fundings[:].fundingName",
+        "field_mapping": "simple",
+        "store": true
+    },
+    "keywords": {
+        "object_path": ".metadata.subjects",
+        "field_mapping": "simple",
+        "store": true
+    }
+}

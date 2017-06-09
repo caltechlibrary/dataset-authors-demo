@@ -15,6 +15,11 @@ for ITEM in $(ls data/*.json); do
     echo "ID: ${ID}, Item: ${ITEM}"
 done
 
+echo "Grab records from CaltechDATA and create collection"
+read -p "Press any key to run command, ctrl-C to exit" NEXT
+$(dataset init caltechdata)
+python caltechdata_feeds.py
+
 echo ""
 echo "Run dsindexer to index our collection based on our definition in authors.json"
 read -p "Press any key to run command, ctrl-C to exit" NEXT
