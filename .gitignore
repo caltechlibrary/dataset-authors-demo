@@ -1,4 +1,5 @@
 *.bleve
 *~
 .DS_Store
-authors/*
+caltechauthors/*
+caltechdata/*
