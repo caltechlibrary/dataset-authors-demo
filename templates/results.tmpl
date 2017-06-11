@@ -9,6 +9,11 @@
         {{- if (gt (len .authors_family) 0) -}}
         <span class="field-name">Author(s)</span>
         <span class="field-value">
+{{- if (eq (typeof .authors_family) "string") -}}
+    {{- .authors_family -}}, {{ .authors_given -}}
+    {{ if $orcid }}(orcid: <a href="https://orcid.org/{{- $orcid -}}">{{- $orcid -}}</a>)
+    {{ end }}
+{{- else -}}
         <ul class="author-names">
         {{- $author_ids := .authors_id -}}
         {{- $given_names := .authors_given -}}
@@ -20,6 +25,7 @@
         </ul><!-- END ul.author-names -->
         </span>
         {{- end -}}
+{{- end -}}
         </div>
 <!--  END: Author List -->
         {{ if (eq .date_type "published") }}<div><span class="field-name">{{ .date_type }}</span> <span class="field-value">{{ .date }}</span>{{- end -}}</div>
