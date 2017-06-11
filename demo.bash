@@ -18,7 +18,7 @@ done
 echo "Grab records from CaltechDATA and create collection"
 read -p "Press any key to run command, ctrl-C to exit" NEXT
 $(dataset init caltechdata)
-python caltechdata_feeds.py
+python3 caltechdata_feeds.py
 
 echo ""
 echo "Run dsindexer to index our collection based on our definition in caltechauthors.json"

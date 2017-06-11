@@ -8,6 +8,7 @@
         <div>
         {{- if (gt (len .authors_family) 0) -}}
         <span class="field-name">Author(s)</span>
+        <span class="field-value">
         <ul class="author-names">
         {{- $author_ids := .authors_id -}}
         {{- $given_names := .authors_given -}}
@@ -17,6 +18,7 @@
             <li><a href="http://authors.library.caltech.edu/view/person-az/{{- (index $author_ids $i) -}}.html">{{- $last_name -}}</a>, {{ (index $given_names $i) }} {{if $orcid }}(orcid: <a href="https://orcid.org/{{- $orcid -}}">{{- $orcid -}}</a>){{ end }}</li>
         {{- end -}}
         </ul><!-- END ul.author-names -->
+        </span>
         {{- end -}}
         </div>
 <!--  END: Author List -->
