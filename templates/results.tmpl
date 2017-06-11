@@ -11,7 +11,7 @@
         <span class="field-value">
 {{- if (eq (typeof .authors_family) "string") -}}
     {{- .authors_family -}}, {{ .authors_given -}}
-    {{ if $orcid }}(orcid: <a href="https://orcid.org/{{- $orcid -}}">{{- $orcid -}}</a>)
+    {{ if .orcid }}(orcid: <a href="https://orcid.org/{{- .orcid -}}">{{- .orcid -}}</a>)
     {{ end }}
 {{- else -}}
         <ul class="author-names">
