@@ -21,7 +21,7 @@ $(dataset init caltechdata)
 python caltechdata_feeds.py
 
 echo ""
-echo "Run dsindexer to index our collection based on our definition in authors.json"
+echo "Run dsindexer to index our collection based on our definition in caltechauthors.json"
 read -p "Press any key to run command, ctrl-C to exit" NEXT
 dsindexer -c caltechauthors caltechauthors.json
 dsindexer -c caltechdata caltechdata.json
