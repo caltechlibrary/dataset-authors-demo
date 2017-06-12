@@ -1,11 +1,11 @@
 {{- define "results.tmpl" -}}
 <section class="search-results">
 {{- range $hit := .hits }}
-{{- $index_name := .index -}}
+    {{- $index_name := .index -}}
+    {{- $fragments := .fragments -}}
     {{- with $hit.fields -}}
     <div class="search-result">
 {{- $eprint_id := .eprint_id -}}
-
     {{ with .title }}
         <div>
             <div class="field-name">Title</div> <div class="field-value">{{- . -}}</div>
@@ -56,8 +56,8 @@
         {{ with .keywords -}}<div><div class="field-name">Keywords</div> <div class="field-value">{{- . -}}</div></div>{{- end }}
         {{ with .rights -}}<div><div class="field-name">Rights</div> <div class="field-value">{{- . -}}</div></div>{{- end }}
 
-        {{- range $key, $values := .fragments -}}
-        <div><div class="matched-name">Matched on {{ $key -}}</div> <div class="matched-value">{{- (join $values "<br />") -}}</div></div>
+        {{- range $key, $values := $fragments -}}
+        <div><div class="matched-name">Matched</div> <div class="matched-value"><i>{{- $key -}}</i>: {{ (join $values "<br />") -}}</div></div>
         {{- end -}}
         {{ with $index_name }}
         <div>
