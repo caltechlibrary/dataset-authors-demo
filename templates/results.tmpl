@@ -2,7 +2,6 @@
 <section class="search-results">
 {{- range $hit := .hits }}
 {{- $index_name := .index -}}
-{{- writelog "DEBUG index_name: " $index_name -}}
     {{- with $hit.fields -}}
     <div class="search-result">
 
