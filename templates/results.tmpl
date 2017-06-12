@@ -4,6 +4,7 @@
 {{- $index_name := .index -}}
     {{- with $hit.fields -}}
     <div class="search-result">
+{{- $eprint_id := .eprint_id -}}
 
     {{ with .title }}
         <div>
@@ -59,7 +60,15 @@
         <div><div class="matched-name">Matched on {{ $key -}}</div> <div class="matched-value">{{- (join $values "<br />") -}}</div></div>
         {{- end -}}
         {{ with $index_name }}
-        <div><div class="index-name">from index</div> <div class="index-value">{{- (basename . ".bleve") -}}</div></div>
+        <div>
+        {{ if (eq (basename $index_name ".bleve") "caltechauthors") }}
+            <div class="index-name">view in </div> 
+            <div class="index-value"><a href="http://authors.library.caltech.edu/{{- $eprint_id -}}">{{- (basename . ".bleve") -}}</a></div>
+        {{ else }}
+            <div class="index-name">from index</div> 
+            <div class="index-value">{{- (basename . ".bleve") -}}</div>
+        {{ end }}
+        </div>
         {{- end }}
     {{- end -}}
     </div><!-- END search-result -->
