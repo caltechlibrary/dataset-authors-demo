@@ -1,46 +1,66 @@
 {{- define "results.tmpl" -}}
 <section class="search-results">
 {{- range $hit := .hits }}
+{{- $index_name := .index -}}
+{{- writelog "DEBUG index_name: " $index_name -}}
     {{- with $hit.fields -}}
     <div class="search-result">
-        {{ with .title -}}<div><span class="field-name">Title</span> <span class="field-value">{{- . -}}</span></div>{{- end }}
-<!-- START: Author List -->
+
+    {{ with .title }}
         <div>
-        {{- if (gt (len .authors_family) 0) -}}
-        <span class="field-name">Author(s)</span>
-        <span class="field-value">
-{{- if (eq (typeof .authors_family) "string") -}}
-    {{- .authors_family -}}, {{ .authors_given -}}
-    {{ if .orcid }}(orcid: <a href="https://orcid.org/{{- .orcid -}}">{{- .orcid -}}</a>)
-    {{ end }}
-{{- else -}}
-        <ul class="author-names">
+            <div class="field-name">Title</div> <div class="field-value">{{- . -}}</div>
+        </div>
+    {{- end }}
+
+<!-- START: Author List -->
+{{- if (ne (typeof .authors_family) "<nil>") }}
+        <div>
+     {{ if (eq (typeof .authors_family) "string") }}
+            <div class="field-name">Author(s)</div>
+            <div class="field-value">
+        {{- .authors_family -}}, {{ .authors_given -}}
+        {{ if .orcid }}(orcid: <a href="https://orcid.org/{{- .orcid -}}">{{- .orcid -}}</a>)
+        {{- end -}}
+            </div>
+     {{ else }}
+            <div class="field-name">Author(s)</div>
+            <div class="field-value">
+                <ul class="author-names">
         {{- $author_ids := .authors_id -}}
         {{- $given_names := .authors_given -}}
         {{- $orcids := .orcid -}}
-        {{- range $i, $last_name := .authors_family -}}
-            {{- $orcid := (index $orcids $i) -}}
-            <li><a href="http://authors.library.caltech.edu/view/person-az/{{- (index $author_ids $i) -}}.html">{{- $last_name -}}</a>, {{ (index $given_names $i) }} {{if $orcid }}(orcid: <a href="https://orcid.org/{{- $orcid -}}">{{- $orcid -}}</a>){{ end }}</li>
-        {{- end -}}
-        </ul><!-- END ul.author-names -->
-        </span>
-        {{- end -}}
-{{- end -}}
-        </div>
+        {{ range $i, $last_name := .authors_family }}
+            {{- $orcid := (index $orcids $i) }}
+                      <li><a href="http://authors.library.caltech.edu/view/person-az/{{- (index $author_ids $i) -}}.html">{{- $last_name -}}</a>, {{ (index $given_names $i) }} {{if $orcid }}(orcid: <a href="https://orcid.org/{{- $orcid -}}">{{- $orcid -}}</a>){{ end }}</li>
+        {{ end }}
+                </ul><!-- END ul author names -->
+            </div>
+    {{ end }}
+       </div><!-- END author field name and field value -->
+{{- end }}
 <!--  END: Author List -->
-        {{ if (eq .date_type "published") }}<div><span class="field-name">{{ .date_type }}</span> <span class="field-value">{{ .date }}</span>{{- end -}}</div>
-        {{ with .citation -}}<div><span class="field-name">Citation</span> <span class="field-value">{{- (markdown .) -}}</span></div>{{- end }}
 
-        {{ with .abstract -}}<div><span class="field-name">Abstract</span> <span class="field-value">{{- (markdown .) -}}</span></div>{{- end }}
+{{ if (ne (typeof .date_type) "<nil>") -}}
+       {{ if (eq .date_type "published") }}
+       <div>
+           <div class="field-name">{{ .date_type }}</div> 
+           <div class="field-value">{{ .date }}</div>
+       </div>
+       {{ end }}
+{{ end }}
+        {{ with .citation -}}<div><div class="field-name">Citation</div> <div class="field-value">{{- (markdown .) -}}</div></div>{{- end }}
 
-        {{ with .keywords -}}<div><span class="field-name">Keywords</span> <span class="field-value">{{- . -}}</span></div>{{- end }}
-        {{ with .rights -}}<div><span class="field-name">Rights</span> <span class="field-value">{{- . -}}</span></div>{{- end }}
+{{- if (eq (typeof .abstract) "string") -}}
+        {{ with .abstract -}}<div><div class="field-name">Abstract</div> <div class="field-value">{{- (markdown .) -}}</div></div>{{- end }}
+{{- end -}}
+        {{ with .keywords -}}<div><div class="field-name">Keywords</div> <div class="field-value">{{- . -}}</div></div>{{- end }}
+        {{ with .rights -}}<div><div class="field-name">Rights</div> <div class="field-value">{{- . -}}</div></div>{{- end }}
 
         {{- range $key, $values := .fragments -}}
-        <div><span class="matched-name">Matched on {{ $key -}}</span> <span class="matched-value">{{- (join $values "<br />") -}}</span></div>
+        <div><div class="matched-name">Matched on {{ $key -}}</div> <div class="matched-value">{{- (join $values "<br />") -}}</div></div>
         {{- end -}}
-        {{ with .index }}
-        <div><span class="index-name">from index</span> <span class="index-value">{{- (basename . ".bleve") -}}</span></div>
+        {{ with $index_name }}
+        <div><div class="index-name">from index</div> <div class="index-value">{{- (basename . ".bleve") -}}</div></div>
         {{- end }}
     {{- end -}}
     </div><!-- END search-result -->

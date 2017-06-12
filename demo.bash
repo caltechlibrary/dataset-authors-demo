@@ -2,8 +2,14 @@
 if [ -d caltechauthors ]; then
     rm -fR caltechauthors
 fi
+if [ -d caltechdata ]; then
+    rm -fR caltechdata
+fi
 if [ -d caltechauthors.bleve ]; then
     rm -fR caltechauthors.bleve
+fi
+if [ -d caltechdata.bleve ]; then
+    rm -fR caltechdata.bleve
 fi
 
 echo "Run dataset command and create our collection from our CaltechAUTHORS sample"
