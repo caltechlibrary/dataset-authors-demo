@@ -21,19 +21,17 @@ $(dataset init caltechdata)
 python3 caltechdata_feeds.py
 
 echo ""
-echo "Run dsindexer to index our collection based on our definition in caltechauthors.json"
+echo "Run dsindexer to index our collections based on our definition in caltechauthors.json and caltechdata.json"
 read -p "Press any key to run command, ctrl-C to exit" NEXT
 dsindexer -c caltechauthors caltechauthors.json
 dsindexer -c caltechdata caltechdata.json
 
-#echo "Run dsfind to generate a CSV table from id, title, authors_id, orcid searching for Singh-C"
-#read -p "Press any key to run command, ctrl-C to exit" NEXT
-#dsfind -c authors -fields="id,title,authors_id,orcid" -csv 'Singh-C'
-
 echo ""
 echo "Run dsws for a web searchable version of our collection"
 read -p "Press any key to run command, ctrl-C to exit" NEXT
+echo ""
 echo "Open your web browser and go to http://localhost:8011"
+echo ""
 dsws -dev-mode=true -t templates caltechauthors.bleve caltechdata.bleve
 
 
